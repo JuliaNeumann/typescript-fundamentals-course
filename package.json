@@ -74,10 +74,5 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "./node_modules/.bin/commitlint -e $HUSKY_GIT_PARAMS"
-    }
   }
 }
