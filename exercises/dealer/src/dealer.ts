@@ -36,7 +36,7 @@ export class Dealer {
 
   dealHand(num: number): Card[] {
     if (num > this.getLength() || num < 0) {
-      throw new Error();
+      throw new Error('Argument for dealHand not correct!');
     }
     return this.deck.splice(0, num);
   }
