@@ -19,12 +19,11 @@ export class App extends React.Component<{}, IAppState> {
     this.setState({ results });
   }
   render() {
-    console.log(this.state.results);
     let placeResults = this.state.results.map(pr => {
       /////////////////////////////////////////////
       // 👇 Replace this with your new <PlaceSearchResult /> component //
       // return <p key={pr.id}>{pr.name}</p>;
-      return <PlaceSearchResult {...pr}/>;
+      return <PlaceSearchResult key={pr.id} {...pr}/>;
     });
     return (
       <ul className='results'>
