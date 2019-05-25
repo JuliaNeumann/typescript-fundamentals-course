@@ -1,3 +1,6 @@
+var autocompleteResult = require('./autocomplete.json');
+var detailsResult = require('./details.json');
+
 export interface PlaceSummary {
   description: string;
   id: string;
@@ -25,9 +28,9 @@ export function fetchPlaceSummaries(input: string): Promise<PlaceSummary[]> {
   return fetch(
     `http://localhost:3000/maps/api/place/autocomplete/json?types=establishment&input=${input}`
   )
-    .then(response => response.json())
+    //.then(response => response.json())
     .then(jsonData => {
-      return jsonData.predictions as PlaceSummary[];
+      return autocompleteResult.predictions as PlaceSummary[];
     });
 }
 
@@ -37,8 +40,8 @@ export function fetchPlaceDetails(placeids: string[]): Promise<PlaceDetails[]> {
       return fetch(
         `http://localhost:3000/maps/api/place/details/json?placeid=${placeid}`
       )
-        .then(response => response.json())
-        .then(jsonData => jsonData.result as PlaceDetails);
+        //.then(response => response.json())
+        .then(jsonData => detailsResult.result as PlaceDetails);
     })
   );
 }
