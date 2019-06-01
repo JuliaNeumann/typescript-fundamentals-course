@@ -17,6 +17,12 @@ export interface PlaceDetails {
   website?: string;
 }
 
+function delay(t:number, v?: any) {
+    return new Promise(function(resolve) {
+        setTimeout(resolve.bind(null, v), t)
+    });
+}
+
 /**
  * Search the google places API, for a particular term
  *
@@ -30,7 +36,7 @@ export function fetchPlaceSummaries(input: string): Promise<PlaceSummary[]> {
   )
     //.then(response => response.json())
     .then(jsonData => {
-      return autocompleteResult.predictions as PlaceSummary[];
+      return delay(1000).then(() => input ? autocompleteResult.predictions as PlaceSummary[] : []);
     });
 }
 
