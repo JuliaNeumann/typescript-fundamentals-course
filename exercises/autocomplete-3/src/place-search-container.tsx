@@ -2,12 +2,16 @@ import * as React from 'react';
 import { autocomplete } from './autocomplete';
 import { shortUrl } from './utils/string';
 import { PlaceDetails } from './utils/places';
-import { PlaceSearchResult } from './place-search-result';
 import { PlaceSearchResultList } from './place-search-result-list';
-import {IPlaceSearchResultList} from "../../autocomplete-2/src/place-search-result-list";
 
 
-export class PlaceSearchContainer extends React.Component<{}, IPlaceSearchResultList> {
+interface IPlaceSearchContainerState {
+    results: PlaceDetails[];
+    term: string;
+    inProgress: boolean;
+}
+
+export class PlaceSearchContainer extends React.Component<{}, IPlaceSearchContainerState> {
   constructor() {
     super();
     this.state = {
@@ -27,7 +31,7 @@ export class PlaceSearchContainer extends React.Component<{}, IPlaceSearchResult
    * @return {undefined}
    */
   async beginSearch(term: string) {
-    this.setState({inProgress: true});
+    this.setState({ term, inProgress: true});
     let results = await autocomplete(term);
     this.setState({ results, inProgress: false });
     // Initiate a search using the ./autocomplete.ts module
@@ -45,10 +49,8 @@ export class PlaceSearchContainer extends React.Component<{}, IPlaceSearchResult
    */
   render() {
     return (
-        <PlaceSearchResultList onInput={this.beginSearch}
-                               inProgress={this.state.inProgress}
-                               results={this.state.results}
-                               term={this.state.term} />
+        <PlaceSearchResultList {... this.state}
+                                onSearchTermChanged={this.beginSearch} />
     );
   }
 }
